@@ -1,2 +1,2 @@
 # rps
-Rock Paper Scissors game: a web development project from Odin
+Rock Paper Scissors game: a very simple web game from Odin Project
