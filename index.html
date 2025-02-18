@@ -3,16 +3,42 @@
 <head>
   <meta charset="utf-8" />
   <title>Rock Paper Scissors</title>
+  <link rel="stylesheet" href="style.css">
   <script src="rps.js" defer></script>
 </head>
 
 <body>
-  <button id="rock">Rock</button>
-  <button id="paper">Paper</button>
-  <button id="scissors">Scissors</button>
+  <div class="container">
+    <div class="game">
+      <div class="player-text">Computer</div>
+      <div class="cards">
+        <img class="card" id="computer" src="fig/card.jpg">
+      </div>
+      <div class="fight">
+        <img class="vs" src="fig/vs.png">
+      </div>
+      <div class="player-text">You</div>
+      <div class="cards">
+        <button class="select" id="rock">
+          <img class="card" src="fig/roshambo-rock.webp">
+        </button>
+        <button class="select" id="paper">
+          <img class="card" src="fig/roshambo-paper.webp">
+        </button>
+        <button class="select" id="scissors">
+          <img class="card" src="fig/roshambo-scissors.webp">
+        </button>
+      </div>
+    </div>
+  </div>
 
-  <div id="results"></div>
-  <div id="score"></div>
-  <div id="winner"></div>
+  <div class="container">
+    <div id="panel">
+      <div class="results-title">Results</div>
+      <div class="output" id="results">[Round Result]</div>
+      <div class="output" id="score">[Current Score]</div>
+      <div class="output" id="winner">[Winner]</div>
+    </div>
+  </div>
 </body>
 </html>

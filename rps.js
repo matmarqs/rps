@@ -24,19 +24,14 @@ function rpsResult(human, comp) {
     return comp === "rock" ? -1 : comp === "paper" ? 1 : 0;
 }
 
-// plays a single round
-function playGame(humanSelection) {
-  if (isFinishedGame())  // the game was finished
-    reinitGame();
-
-  let resultString = playRound(humanSelection);
-
-  displayResults(resultString);
-  displayFinalWinner();
-}
-
 function playRound(humanSelection) {
   const computerSelection = getComputerChoice();
+  imgComputer.src = `fig/roshambo-${computerSelection}.webp`;
+  if (!computerAnim)
+    imgComputer.classList.add("anim");
+  else
+    imgComputer.classList.remove("anim");
+  computerAnim = !computerAnim;
   const result = rpsResult(humanSelection, computerSelection);
   let resultString;
   switch (result) {
@@ -54,6 +49,16 @@ function playRound(humanSelection) {
   return resultString
 }
 
+function playGame(humanSelection) {
+  if (isFinishedGame())  // the game was finished
+    reinitGame();
+
+  let resultString = playRound(humanSelection);
+
+  displayResults(resultString);
+  displayFinalWinner();
+}
+
 function isFinishedGame() {
   return score.human == 5 || score.computer == 5
 }
@@ -62,19 +67,28 @@ function reinitGame() {
   score.human = 0;
   score.computer = 0;
   divWinner.textContent = "";
+  divWinner.style.visibility = "hidden";
 }
 
 function displayResults(resultString) {
   divResults.textContent = resultString;  // display round result
   divScore.textContent = `You: ${score.human}   vs.   Computer: ${score.computer}`; // display score
+  divResults.style.visibility = "visible";
+  divScore.style.visibility = "visible";
 }
 
 function displayFinalWinner() {
-  let scoreString = "";
-  if (score.human == 5)
+  let scoreString = "[Winner]";
+  if (score.human == 5) {
     scoreString = "You win!"
-  else if (score.computer == 5)
+    divWinner.style.color = "green";
+    divWinner.style.visibility = "visible";
+  }
+  else if (score.computer == 5) {
     scoreString = "You lose!"
+    divWinner.style.color = "red";
+    divWinner.style.visibility = "visible";
+  }
   divWinner.textContent = scoreString;  // display winner
 }
 
@@ -87,7 +101,13 @@ btnPaper.addEventListener("click", () => { playGame("paper"); });
 btnScissors.addEventListener("click", () => { playGame("scissors"); });
 
 const divResults = document.querySelector("#results");
+divResults.style.visibility = "hidden";
 const divScore = document.querySelector("#score");
+divScore.style.visibility = "hidden";
 const divWinner = document.querySelector("#winner");
+divWinner.style.visibility = "hidden";
+
+const imgComputer = document.querySelector("#computer");
 
 let score = { human: 0, computer: 0 };
+let computerAnim = false;
